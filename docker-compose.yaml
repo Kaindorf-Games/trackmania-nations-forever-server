@@ -1,6 +1,6 @@
 services:
   trackmania:
-    image: trackmania
+    image: ghcr.io/kaindorf-games/trackmania-nations-forever-server:main
     volumes:
       - ./config:/trackmania_config
     ports:
