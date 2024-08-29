@@ -1,0 +1,28 @@
+services:
+  trackmania:
+    image: trackmania
+    volumes:
+      - ./config:/trackmania_config
+    ports:
+      - 2350:2350
+      - 3450:3450
+      - 5000:5000
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+  mysql:
+    image: mysql:5.7.44
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_USER=kg
+      - MYSQL_PASSWORD=kgTrackmania
+      - MYSQL_DATABASE=aseco
+      - MYSQL_ROOT_PASSWORD=kgTrackmania
+    volumes:
+      - ./mysql:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 5s
+      retries: 20
